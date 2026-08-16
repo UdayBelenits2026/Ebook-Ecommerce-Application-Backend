@@ -27,8 +27,21 @@ from app.notification.router import router as notification_router
 # Create Tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title=settings.PROJECT_NAME, description="Production Bookstore API", version="1.0.0")
-
+# app = FastAPI(title=settings.PROJECT_NAME, description="Production Bookstore API", version="1.0.0")
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    description="Production Bookstore API",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+)
+@app.get("/")
+def root():
+    return {
+        "success": True,
+        "message": "Ebook Ecommerce API is running"
+    }
 # CORS setup for Angular Frontend
 app.add_middleware(
     CORSMiddleware,
